@@ -24,6 +24,8 @@ public class cameracontroller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            //unparents the character
+            player.SetParent(null, true);
             flatten = Vector3.one;
             animator.SetBool("left", true);
             Invoke("stop", .1f);
@@ -40,6 +42,8 @@ public class cameracontroller : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            //unparents the character
+            player.SetParent(null, true);
             flatten = Vector3.one;
             animator.SetBool("right", true);
             Invoke("stop", .1f);
@@ -63,9 +67,9 @@ public class cameracontroller : MonoBehaviour
     }
     public void set()
     {
-        // sets the flat axis to the correct axis and unparents the character
+        // sets the flat axis to the correct axis 
         flatten = Vect;
-        player.SetParent(null, true);
+
     }
     private void SetStart()
     {
