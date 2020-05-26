@@ -40,6 +40,6 @@ public class playercontroller : MonoBehaviour
     }
     private void OnCollisionExit(Collision collision)
     {
-        touching = null;
+
     }
 }
