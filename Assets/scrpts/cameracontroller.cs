@@ -34,10 +34,15 @@ public class cameracontroller : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(player.position, Vector3.down, out hit))
             {
+                Debug.Log(hit.collider.gameObject);
                 if (hit.collider.gameObject != null)
                 {
                     player.SetParent(hit.collider.gameObject.transform,true);
                 }
+            }
+            else
+            {
+                player.SetParent(player.GetComponent<playercontroller>().touching.transform, true);
             }
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -50,14 +55,20 @@ public class cameracontroller : MonoBehaviour
             Invoke("set", .25f);
             // parents the character to the object below it
             RaycastHit hit;
-            if (Physics.Raycast(player.position, Vector3.down, out hit))
+            if (Physics.Raycast(player.position, Vector3.down, out hit,20))
             {
+                Debug.Log(hit.collider.gameObject);
                 if (hit.collider.gameObject != null)
                 {
                     player.SetParent(hit.collider.gameObject.transform, true);
                 }
             }
+            else
+            {
+                player.SetParent(player.GetComponent<playercontroller>().touching.transform, true);
+            }
         }
+
     }
     public void stop()
     {

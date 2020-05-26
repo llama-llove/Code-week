@@ -9,6 +9,7 @@ public class playercontroller : MonoBehaviour
     public Rigidbody self;
     public cameracontroller camera;
     public float jumpspeed;
+    public GameObject touching;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +33,13 @@ public class playercontroller : MonoBehaviour
         {
             self.AddForce(0,jumpspeed,0);
         }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        touching = collision.gameObject; 
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        touching = null;
     }
 }
