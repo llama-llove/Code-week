@@ -9,8 +9,9 @@ public class flattening : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // sets the true position of the object
+        // sets the true position of the object and finds the main camera
         position = transform.position;
+        camera = GameObject.Find("camera").GetComponent<cameracontroller>();
     }
 
     public void Update()
