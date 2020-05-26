@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,11 +11,12 @@ public class playercontroller : MonoBehaviour
     public cameracontroller camera;
     public float jumpspeed;
     public GameObject touching;
+    public bool inair;
     // Start is called before the first frame update
     void Start()
     {
         self = gameObject.GetComponent<Rigidbody>();
-
+        inair = false;
     }
 
     // Update is called once per frame
@@ -29,17 +31,18 @@ public class playercontroller : MonoBehaviour
         {
             self.MovePosition(transform.position + camera.move * 1 * speed * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)&&inair==false)
         {
             self.AddForce(0,jumpspeed,0);
+            inair = true;
         }
     }
     private void OnCollisionStay(Collision collision)
     {
         touching = collision.gameObject; 
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-
+        inair = false;
     }
 }

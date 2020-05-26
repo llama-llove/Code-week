@@ -22,50 +22,57 @@ public class cameracontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        // if it's already turning you can't turn it more
+        if (isturning==false)
         {
-            //unparents the character
-            player.SetParent(null, true);
-            flatten = Vector3.one;
-            animator.SetBool("left", true);
-            Invoke("stop", .1f);
-            Invoke("set", .25f);
-            // parents the character to the object below it
-            RaycastHit hit;
-            if (Physics.Raycast(player.position, Vector3.down, out hit))
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                Debug.Log(hit.collider.gameObject);
-                if (hit.collider.gameObject != null)
+                isturning = true;
+                //unparents the character
+                player.SetParent(null, true);
+                flatten = Vector3.one;
+                animator.SetBool("left", true);
+                Invoke("stop", .1f);
+                Invoke("set", .25f);
+                // parents the character to the object below it
+                RaycastHit hit;
+                if (Physics.Raycast(player.position, Vector3.down, out hit,.5f))
                 {
-                    player.SetParent(hit.collider.gameObject.transform,true);
+                    Debug.Log(hit.collider.gameObject);
+                    if (hit.collider.gameObject != null)
+                    {
+                        player.SetParent(hit.collider.gameObject.transform, true);
+                    }
+                }
+                else
+                {
+                    player.SetParent(player.GetComponent<playercontroller>().touching.transform, true);
                 }
             }
-            else
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                player.SetParent(player.GetComponent<playercontroller>().touching.transform, true);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            //unparents the character
-            player.SetParent(null, true);
-            flatten = Vector3.one;
-            animator.SetBool("right", true);
-            Invoke("stop", .1f);
-            Invoke("set", .25f);
-            // parents the character to the object below it
-            RaycastHit hit;
-            if (Physics.Raycast(player.position, Vector3.down, out hit,20))
-            {
-                Debug.Log(hit.collider.gameObject);
-                if (hit.collider.gameObject != null)
+                isturning = true;
+                //unparents the character
+                player.SetParent(null, true);
+                flatten = Vector3.one;
+                animator.SetBool("right", true);
+                Invoke("stop", .1f);
+                Invoke("set", .25f);
+                // parents the character to the object below it
+                RaycastHit hit;
+                if (Physics.Raycast(player.position, Vector3.down, out hit, .5f))
                 {
-                    player.SetParent(hit.collider.gameObject.transform, true);
+                    Debug.Log(hit.collider.gameObject);
+                    if (hit.collider.gameObject != null)
+                    {
+                        player.SetParent(hit.collider.gameObject.transform, true);
+                    }
                 }
-            }
-            else
-            {
-                player.SetParent(player.GetComponent<playercontroller>().touching.transform, true);
+                else
+                {
+                    player.SetParent(player.GetComponent<playercontroller>().touching.transform, true);
+                }
             }
         }
 
@@ -78,13 +85,14 @@ public class cameracontroller : MonoBehaviour
     }
     public void set()
     {
-        // sets the flat axis to the correct axis 
+        // sets the flat axis to the correct axis and stops turning
         flatten = Vect;
-
+        isturning = false;
     }
     private void SetStart()
     {
-        // starts the game with correct flat axis
+        // starts the game with correct flat axis and stops turning
         flatten = new Vector3(1, 1, 0);
+        isturning = false;
     }
 }
