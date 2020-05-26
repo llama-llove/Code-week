@@ -19,6 +19,7 @@ public class playercontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // movement script
         if (Input.GetKey("a"))
         {
             self.MovePosition(transform.position+camera.move * -1 * speed*Time.deltaTime);

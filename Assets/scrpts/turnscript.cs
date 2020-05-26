@@ -10,12 +10,10 @@ public class turnscript : StateMachineBehaviour
     public Vector3 flatter;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // gives cameracontroller script the current rotation's movement direction and axis to become flat on
         camera = animator.gameObject.GetComponent<cameracontroller>();
         camera.move = Vect;
         camera.Vect = flatter;
     }
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
 
-    }
 }

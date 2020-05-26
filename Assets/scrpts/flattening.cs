@@ -9,15 +9,14 @@ public class flattening : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // sets the true position of the object
         position = transform.position;
     }
 
     public void Update()
     {
+        // flattens the object along the flat axis
         transform.position = new Vector3(camera.flatten.x * position.x, camera.flatten.y * position.y, camera.flatten.z * position.z);
     }
-    public void flatten(Vector3 flatten)
-    {
-        transform.position = new Vector3(flatten.x * position.x, flatten.y * position.y, flatten.z * position.z);
-    }
+
 }
