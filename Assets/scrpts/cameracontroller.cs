@@ -23,7 +23,7 @@ public class cameracontroller : MonoBehaviour
     void Update()
     {
         // camera moves to player position
-        transform.position = player.position;
+        gameObject.transform.localPosition = new Vector3(player.position.x,player.position.y,player.position.z);
         // if it's already turning you can't turn it more
         if (isturning==false)
         {
@@ -90,6 +90,7 @@ public class cameracontroller : MonoBehaviour
         // sets the flat axis to the correct axis and stops turning
         flatten = Vect;
         isturning = false;
+        player.gameObject.GetComponent<playercontroller>().turnstay();
     }
     private void SetStart()
     {

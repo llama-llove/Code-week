@@ -10,16 +10,20 @@ public class playercontroller : MonoBehaviour
     public GameObject touching;
     public bool inair;
     public float deathlevel;
+    public Vector3 Coords;
     // Start is called before the first frame update
     void Start()
     {
         self = gameObject.GetComponent<Rigidbody>();
         inair = false;
+        Coords = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log(Coords);
         if (transform.position.y <= deathlevel)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -35,9 +39,12 @@ public class playercontroller : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space)&&inair==false)
         {
-            self.AddForce(0,jumpspeed,0);
+            self.AddForce(0,jumpspeed,0); 
             inair = true;
         }
+
+        Coords = new Vector3(Coords.x+(transform.position.x-Coords.x)*camera.flatten.x,Coords.y + (transform.position.y - Coords.y) * camera.flatten.y, Coords.z + (transform.position.z - Coords.z) * camera.flatten.z);
+        transform.position = new Vector3(camera.flatten.x * Coords.x, camera.flatten.y * Coords.y, camera.flatten.z * Coords.z);
     }
     private void OnCollisionStay(Collision collision)
     {
@@ -46,5 +53,9 @@ public class playercontroller : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         inair = false;
+    }
+    public void turnstay()
+    {
+        transform.position = new Vector3(camera.flatten.x * Coords.x, camera.flatten.y * Coords.y, camera.flatten.z * Coords.z);
     }
 }
