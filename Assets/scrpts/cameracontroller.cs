@@ -22,6 +22,8 @@ public class cameracontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // camera moves to player position
+        transform.position = player.position;
         // if it's already turning you can't turn it more
         if (isturning==false)
         {

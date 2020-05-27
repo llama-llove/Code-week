@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playercontroller : MonoBehaviour
 {
@@ -12,6 +9,7 @@ public class playercontroller : MonoBehaviour
     public float jumpspeed;
     public GameObject touching;
     public bool inair;
+    public float deathlevel;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +20,10 @@ public class playercontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y <= deathlevel)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         // movement script
         if (Input.GetKey("a"))
         {
